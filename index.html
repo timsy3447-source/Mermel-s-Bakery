@@ -1,0 +1,402 @@
+
+<!-- Main HTML document for Mermels Bakery website (simplified version) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mermels Bakery</title>
+    <link rel="icon" type="image/png" href="merm.png">
+    <link rel="stylesheet" href="style.css">
+    <style>
+                  nav {
+                    transition: min-height 0.3s cubic-bezier(.4,0,.2,1), height 0.3s cubic-bezier(.4,0,.2,1), padding 0.3s cubic-bezier(.4,0,.2,1);
+                    overflow: visible;
+                  }
+                  nav.nav-collapsed {
+                    min-height: 60px !important;
+                    height: 60px !important;
+                    padding-bottom: 0 !important;
+                    overflow: hidden !important;
+                  }
+                  nav.nav-collapsed #menu-links {
+                    display: none !important;
+                  }
+            /* Arrow toggle button for mobile nav */
+            .nav-arrow-toggle {
+              display: none;
+              position: absolute;
+              left: 50%;
+              top: 50%;
+              transform: translate(-50%, -50%);
+              background: #fff;
+              border: 2px solid #e2e2e2;
+              border-radius: 50%;
+              width: 44px;
+              height: 44px;
+              box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+              z-index: 1200;
+              justify-content: center;
+              align-items: center;
+              cursor: pointer;
+              transition: background 0.2s;
+            }
+            .nav-arrow-toggle svg {
+              width: 28px;
+              height: 28px;
+              display: block;
+              margin: auto;
+            }
+            .nav-arrow-toggle:active {
+              background: #f3f3f3;
+            }
+            @media (max-width: 700px) {
+              .nav-arrow-toggle {
+                display: flex !important;
+              }
+            }
+      .alert {
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+      }
+      .alert-success {
+        background-color: #d4edda;
+        border: 1px solid #c3e6cb;
+        color: #155724;
+      }
+      .alert-info {
+        background-color: #d1ecf1;
+        border: 1px solid #bee5eb;
+        color: #0c5460;
+      }
+
+      /* --- Responsive Mobile Styles --- */
+      @media (max-width: 700px) {
+        nav {
+          position: fixed !important;
+          top: 0 !important;
+          left: 0 !important;
+          width: 100vw !important;
+          z-index: 1000 !important;
+          border-radius: 0 0 16px 16px !important;
+          box-shadow: 0 4px 18px rgba(0,0,0,0.13) !important;
+          padding: 10px 0 !important;
+        }
+        .main-content-wrapper {
+          flex-direction: column !important;
+          gap: 0 !important;
+          max-width: 100vw !important;
+          margin-top: 90px !important;
+          padding: 0 2vw !important;
+        }
+        .right-info-panel {
+          min-width: 0 !important;
+          width: 100% !important;
+          padding: 18px 4vw !important;
+          border-radius: 0 !important;
+          box-shadow: none !important;
+        }
+        .bakery-text-box, .video-container {
+          border-radius: 0 !important;
+          box-shadow: none !important;
+          padding: 14px 2vw !important;
+        }
+        .insta-banner {
+          margin-left: 0 !important;
+          margin-right: 0 !important;
+        }
+        section[style*="background-image"] {
+          max-width: 100vw !important;
+          margin: 80px auto 0 auto !important;
+          border-radius: 0 !important;
+          padding: 24px 2vw 18px !important;
+        }
+        #menu-links {
+          display: flex !important;
+          flex-direction: column !important;
+          gap: 10px !important;
+          background: rgba(255,255,255,0.97) !important;
+          position: static !important;
+          box-shadow: none !important;
+        }
+        #menu-toggle {
+          z-index: 1100 !important;
+        }
+      }
+    </style>
+</head>
+<body style="background-image: url('background.png'); background-size: cover; background-attachment: fixed; background-position: center;">
+  <!-- Navigation bar -->
+  <nav style="position: absolute; top: 12px; left: 10px; width: auto; background: rgba(255, 255, 255, 0.95); padding: 12px 14px; border-radius: 10px; box-shadow: 0 6px 18px rgba(0,0,0,0.15); min-width: 220px; min-height: 60px;">
+    <!-- Arrow toggle for mobile nav -->
+    <button class="nav-arrow-toggle" id="navArrowToggle" aria-label="Toggle navigation">
+      <svg id="arrowIcon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 12l8 8 8-8" stroke="#333" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <img src="IMG_20260417_170531.jpg" alt="Mermel's Bakery Logo" style="width: 60px; height: 50px; border-radius: 50%;">
+      <button id="menu-toggle" onclick="toggleMenu()" style="display: flex; flex-direction: column; justify-content: space-between; width: 28px; height: 22px; background: transparent; border: none; padding: 0; cursor: pointer;">
+        <span style="display: block; height: 3px; background: #333; border-radius: 2px;"></span>
+        <span style="display: block; height: 3px; background: #333; border-radius: 2px;"></span>
+        <span style="display: block; height: 3px; background: #333; border-radius: 2px;"></span>
+      </button>
+    </div>
+    <div id="menu-links" style="display: none; margin-top: 12px; flex-direction: column; gap: 10px;">
+      <a href="index.html#home" style="color: #c51c1cbd; text-decoration: none; font-weight: bold; display: block;">Home</a>
+      <a href="gallery2.html" style="color: #8e3e3e; text-decoration: none; display: block;">Gallery</a>
+      <a href="index.html#contact" style="color: #992e2e; text-decoration: none; display: block;">Contact</a>
+    </div>
+  </nav>
+    <script>
+      // Arrow toggle for mobile nav
+      const navArrowToggle = document.getElementById('navArrowToggle');
+      const menuLinks = document.getElementById('menu-links');
+      const arrowIcon = document.getElementById('arrowIcon');
+      let navOpen = false;
+      function setArrowDir(open) {
+        // Down arrow for open, up arrow for closed
+        arrowIcon.innerHTML = open
+          ? '<path d="M8 12l8 8 8-8" stroke="#333" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>'
+          : '<path d="M8 20l8-8 8 8" stroke="#333" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>';
+      }
+      const nav = document.querySelector('nav');
+      function toggleNavMenu() {
+        navOpen = !navOpen;
+        if (navOpen) {
+          nav.classList.remove('nav-collapsed');
+        } else {
+          nav.classList.add('nav-collapsed');
+        }
+        setArrowDir(navOpen);
+      }
+      navArrowToggle.addEventListener('click', toggleNavMenu);
+      // On mobile, start with nav open
+      function handleResize() {
+        if (window.innerWidth <= 700) {
+          navArrowToggle.style.display = 'flex';
+          if (navOpen) {
+            nav.classList.remove('nav-collapsed');
+          } else {
+            nav.classList.add('nav-collapsed');
+          }
+        } else {
+          navArrowToggle.style.display = 'none';
+          nav.classList.remove('nav-collapsed');
+          navOpen = true;
+          setArrowDir(true);
+        }
+      }
+      window.addEventListener('resize', handleResize);
+      document.addEventListener('DOMContentLoaded', () => {
+        navOpen = false;
+        handleResize();
+      });
+    </script>
+  <!-- Hero section -->
+  <section style="background-image: url('head.png'); background-size: cover; background-position: center; border: 6px solid #ffffff; border-radius: 12px; padding: 40px 24px 24px; max-width: 600px; margin: 24px auto; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); text-align: center; color: white; position: relative; overflow: hidden;">
+    <div style="position: absolute; inset: 0; background: rgba(0, 0, 0, 0.35);"></div>
+    <div style="position: relative; z-index: 1; display: flex; flex-direction: column; justify-content: space-between; min-height: 100%;">
+      <h1 style="margin-bottom: 18px; font-size: 2.5rem;">Welcome to Mermel's Bakery</h1>
+      <p>We craft delicious cake items with high-quality fresh ingredients. Every cake is a piece of art, baked with love and care for your special moments.</p>
+      <!-- Animated Down Arrow (bottom right, smaller) -->
+      <button id="scrollDownArrow" aria-label="Scroll down" style="position: absolute; right: 18px; bottom: 18px; background: rgba(255,255,255,0.13); border: none; outline: none; border-radius: 50%; padding: 6px; cursor: pointer; display: flex; flex-direction: column; align-items: center; box-shadow: 0 2px 8px #fc575e33; z-index: 2;">
+        <svg width="32" height="32" viewBox="0 0 48 48" style="animation: bounceDown 1.2s infinite alternate;" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 20l12 12 12-12" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <style>
+        @keyframes bounceDown {
+          0% { transform: translateY(0); }
+          100% { transform: translateY(10px) scale(1.08); }
+        }
+        #scrollDownArrow:hover svg {
+          filter: drop-shadow(0 0 8px #fc575e99);
+          animation: bounceDown 0.5s infinite alternate;
+        }
+        #scrollDownArrow:active svg {
+          filter: drop-shadow(0 0 16px #fc575e);
+          transform: scale(1.12);
+        }
+        #scrollDownArrow {
+          transition: background 0.2s, box-shadow 0.2s;
+        }
+        #scrollDownArrow:hover {
+          background: rgba(252,87,94,0.18);
+          box-shadow: 0 4px 16px #fc575e55;
+        }
+      </style>
+    </div>
+    <script>
+      // Scroll down arrow interaction
+      document.addEventListener('DOMContentLoaded', function() {
+        var arrow = document.getElementById('scrollDownArrow');
+        if (arrow) {
+          arrow.addEventListener('click', function() {
+            // Scroll to the order form
+            var form = document.getElementById('order-form');
+            if (form) {
+              form.scrollIntoView({behavior: 'smooth'});
+            }
+          });
+        }
+      });
+    </script>
+  </section>
+  <div class="main-content-wrapper" style="display: flex; flex-direction: row; gap: 36px; max-width: 1200px; margin: 40px auto 0 auto; padding: 0 18px; z-index: 1; position: relative;">
+    <section class="right-info-panel" style="flex: 1; display: flex; flex-direction: column; gap: 28px; min-width: 320px; background: rgba(255,255,255,0.7); border-radius: 18px; padding: 32px 24px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); align-items: stretch; justify-content: flex-start; margin: 0 auto;">
+      <div class="video-container" style="width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; margin-bottom: 18px;">
+        <!-- Interactive Cupcake Builder -->
+        <svg id="cupcake-svg" width="160" height="160" viewBox="0 0 160 160" style="cursor:pointer; margin-bottom: 10px;" xmlns="http://www.w3.org/2000/svg">
+          <!-- Cupcake base -->
+          <rect x="50" y="90" width="60" height="40" rx="16" fill="#e6c7a6" stroke="#c51c1cbd" stroke-width="2"/>
+          <!-- Frosting -->
+          <ellipse id="frosting" cx="80" cy="90" rx="38" ry="22" fill="#fc575e" stroke="#c51c1cbd" stroke-width="2"/>
+          <!-- Sprinkles -->
+          <circle id="sprinkle1" cx="70" cy="85" r="3" fill="#fffbe6"/>
+          <circle id="sprinkle2" cx="90" cy="95" r="2.5" fill="#ffe0f7"/>
+          <circle id="sprinkle3" cx="80" cy="100" r="2.5" fill="#c51c1cbd"/>
+          <circle id="sprinkle4" cx="100" cy="88" r="2.5" fill="#f7e7e1"/>
+          <circle id="sprinkle5" cx="85" cy="80" r="2" fill="#fc575e"/>
+          <!-- Cherry -->
+          <circle cx="80" cy="70" r="7" fill="#c51c1cbd" stroke="#fff" stroke-width="2"/>
+        </svg>
+        <div style="font-size: 1.1rem; color: #c51c1cbd; text-align: center; font-style: italic; max-width: 320px;">
+          Click the cupcake to randomize frosting and sprinkles!
+        </div>
+      </div>
+      <script>
+        // Interactive cupcake builder
+        (function() {
+          const frostingColors = [
+            {color: '#fc575e', label: 'Strawberry'},
+            {color: '#f7e7e1', label: 'Vanilla'},
+            {color: '#c51c1cbd', label: 'Chocolate'},
+            {color: '#ffe0f7', label: 'Berry Cream'},
+            {color: '#e6c7a6', label: 'Caramel'}
+          ];
+          const sprinkleColors = ['#fffbe6', '#ffe0f7', '#c51c1cbd', '#f7e7e1', '#fc575e', '#a259c5', '#fcf6b1', '#b2f7ef'];
+          const frosting = document.getElementById('frosting');
+          const sprinkles = [
+            document.getElementById('sprinkle1'),
+            document.getElementById('sprinkle2'),
+            document.getElementById('sprinkle3'),
+            document.getElementById('sprinkle4'),
+            document.getElementById('sprinkle5')
+          ];
+          const svg = document.getElementById('cupcake-svg');
+          let flavorText;
+          function randomize() {
+            // Frosting
+            const idx = Math.floor(Math.random() * frostingColors.length);
+            frosting.setAttribute('fill', frostingColors[idx].color);
+            // Sprinkles
+            sprinkles.forEach(s => {
+              const c = sprinkleColors[Math.floor(Math.random() * sprinkleColors.length)];
+              s.setAttribute('fill', c);
+            });
+            // Flavor label
+            if (!flavorText) {
+              flavorText = document.createElement('div');
+              flavorText.style.fontSize = '1.05rem';
+              flavorText.style.color = '#c51c1cbd';
+              flavorText.style.marginTop = '6px';
+              flavorText.style.fontWeight = 'bold';
+              svg.parentNode.appendChild(flavorText);
+            }
+            flavorText.textContent = frostingColors[idx].label + ' Frosting';
+          }
+          svg.addEventListener('click', randomize);
+          randomize();
+        })();
+      </script>
+      <div class="bakery-text-box" style="background: #fff8fa; border-radius: 12px; padding: 18px 16px; box-shadow: 0 2px 8px rgba(197,28,28,0.06); margin-bottom: 0;">
+        <h3>Handcrafted with Love</h3>
+        <p>Welcome to Mermel's Bakery! We bake every cake from scratch, using only the best ingredients. Taste the difference in every bite!</p>
+      </div>
+      <!-- Submission Form with Gallery Button on Top -->
+      <div class="bakery-text-box" style="background: #fff8fa; border-radius: 12px; padding: 18px 16px; box-shadow: 0 2px 8px rgba(197,28,28,0.06); margin-bottom: 0;">
+        <div style="text-align: center; margin-bottom: 24px;">
+          <a href="gallery2.html" class="cta-button gallery-attract" style="display: inline-block; padding: 26px 60px; font-size: 2.1rem; font-weight: bold; background: linear-gradient(90deg, #ff5e62 0%, #ff9966 50%, #fc575e 100%); color: #fff; border: none; border-radius: 18px; text-decoration: none; box-shadow: 0 8px 32px #fc575e66, 0 2px 8px #ff996633; letter-spacing: 2px; text-shadow: 0 2px 12px #c51c1c99, 0 1px 0 #fff; position: relative; overflow: hidden; transition: background 0.2s, transform 0.2s; animation: pulseGlow 1.5s infinite alternate;">
+            <span style="font-size:2.5rem; vertical-align:middle; margin-right:18px;">🎂</span>
+            SEE OUR GALLERY
+            <span style="font-size:2.5rem; vertical-align:middle; margin-left:18px;">➡️</span>
+          </a>
+        </div>
+        <h3>Contact & Order</h3>
+        <form id="order-form" action="https://formsubmit.co/timsy3447@gmail.com" method="POST" style="display: flex; flex-direction: column; gap: 14px;">
+          <input type="text" name="name" placeholder="Full Name" required style="padding: 10px; border-radius: 6px; border: 1px solid #ccc;">
+          <input type="email" name="email" placeholder="Email Address" required style="padding: 10px; border-radius: 6px; border: 1px solid #ccc;">
+          <input type="tel" name="phone" placeholder="Phone Number" required style="padding: 10px; border-radius: 6px; border: 1px solid #ccc;">
+          <input type="text" name="cakeType" id="cakeType" placeholder="Type of Cake" style="padding: 10px; border-radius: 6px; border: 1px solid #ccc;" required>
+          <textarea name="message" placeholder="Your message or cake request" rows="3" style="padding: 10px; border-radius: 6px; border: 1px solid #ccc;"></textarea>
+          <input type="hidden" name="_captcha" value="true">
+          <input type="hidden" name="_next" value="thankyou.html">
+          <button type="submit" class="cta-button" style="margin-top: 10px;">Submit</button>
+        </form>
+      </div>
+      <style>
+        @keyframes pulseGlow {
+          0% { box-shadow: 0 8px 32px #fc575e66, 0 2px 8px #ff996633; transform: scale(1); }
+          100% { box-shadow: 0 0 64px 16px #ff996655, 0 2px 8px #fc575e99; transform: scale(1.04) rotate(-1deg); }
+        }
+        .gallery-attract:hover {
+          background: linear-gradient(90deg, #fc575e 0%, #ff9966 100%);
+          transform: scale(1.07) rotate(1deg);
+          box-shadow: 0 16px 48px #fc575e99, 0 2px 8px #ff996633;
+        }
+      </style>
+    </section>
+  </div>
+  <!-- Instagram Banner -->
+  <div class="insta-banner" style="margin: 40px 0 0 0; display: flex; justify-content: center;">
+    <a href="https://www.instagram.com/mermel_cake8/" target="_blank" rel="noopener" class="insta-banner-link" style="display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.92); border-radius: 24px; box-shadow: 0 2px 12px #fc575e22; padding: 18px 32px; font-size: 1.25rem; color: #c51c1cbd; text-decoration: none; font-weight: 600; transition: background 0.2s, box-shadow 0.2s, color 0.2s;">
+      <img src="insta.png" alt="Instagram" style="width: 32px; height: 32px; margin-right: 10px; border-radius: 7px; box-shadow: 0 2px 8px #fc575e22; background: #fff; object-fit: cover;">
+      <span class="insta-text">See our daily bakes on <strong>Instagram</strong> &mdash; real cakes, real customers, real love!</span>
+      <span class="insta-arrow" aria-hidden="true" style="font-size: 1.5em; color: #fc575e; margin-left: 12px;">&#8594;</span>
+    </a>
+  </div>
+  <!-- Contact/About section -->
+  <section id="contact" class="interactive-about" style="margin: 24px 0 0 0; padding: 32px 0;">
+    <h2 style="text-align:center; font-size:2.3rem; letter-spacing:1px; color:#fc575e;">About Us</h2>
+    <div style="text-align:center;">
+      <button class="about-toggle" onclick="toggleAboutDetails(event)">Show More</button>
+    </div>
+    <div class="about-details" style="text-align:center;">
+      <p style="margin-top: 24px; font-size:1.2rem;">Welcome to Mermel's Bakery! We bake fresh, delicious cakes every day using the finest ingredients and love. Whether you want a birthday cake, wedding cake, or cupcakes, we make each order special.</p>
+      <p>Email: <a href="mailto:timsy3447@gmail.com" style="color:#fff; text-decoration:underline;">timsy3447@gmail.com</a></p>
+      <p>Call: <a href="tel:0789836947" style="color:#fff; text-decoration:underline;">0789836947</a> for more info.</p>
+    </div>
+  </section>
+  <script>
+    // Auto-fill cake type if set in localStorage
+    document.addEventListener('DOMContentLoaded', function() {
+      var cakeTypeInput = document.getElementById('cakeType');
+      if (cakeTypeInput && localStorage.getItem('selectedCakeType')) {
+        cakeTypeInput.value = localStorage.getItem('selectedCakeType');
+        localStorage.removeItem('selectedCakeType');
+        // Scroll to the form if coming from gallery2
+        var form = document.getElementById('order-form');
+        if (form) {
+          form.scrollIntoView({behavior: 'smooth'});
+        }
+      }
+    });
+    function toggleMenu() {
+      const menu = document.getElementById('menu-links');
+      menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+    }
+    function toggleAboutDetails(e) {
+      const section = document.getElementById('contact');
+      section.classList.toggle('open');
+      const btn = section.querySelector('.about-toggle');
+      if (section.classList.contains('open')) {
+        btn.textContent = 'Show Less';
+      } else {
+        btn.textContent = 'Show More';
+      }
+    }
+  </script>
+</body>
+</html>
